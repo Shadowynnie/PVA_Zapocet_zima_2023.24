@@ -1,0 +1,46 @@
+﻿@page
+@model Zapocet.Pages.Forms.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h3>Add Credits to the Database</h3>
+
+<form method="post">
+    <input id="valueInput" type="number" asp-for="Value" min="1" max="5" placeholder="rate 1 to 5" /><br /><!--asp-for="" slouzi jako ukazatel na konkretni propertu-->
+    <label>Success: </label>
+    <input id="successInput" type="checkbox" asp-for="Success" /><br />
+    <button type="submit">Create</button>
+</form>
+
+<hr />
+
+<h3>Existing Credits</h3>
+
+@if (Model.ExistingCredits != null && Model.ExistingCredits.Any())
+{
+    <ul>
+        @foreach (var credit in Model.ExistingCredits)
+        {
+            <li>
+                Id: @credit.Id<br />
+                Created: @credit.Created.ToString("yyyy-MM-dd HH:mm:ss")<br />
+                Value: @credit.Value<br />
+                Success: @credit.Success.ToString()<br />
+            </li>
+            <hr /> <!-- Vodorovná čára pro oddělení každého záznamu -->
+        }
+    </ul>
+}
+else
+{
+    <p>No existing credits.</p>
+}
+
+<!-- Vynuluje hodnoty formuláře po odeslání -->
+<script>
+    function resetForm() 
+    {
+        document.getElementById("valueInput").value = "";
+        document.getElementById("successInput").checked = false;
+    }
+</script>
